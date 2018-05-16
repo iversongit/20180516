@@ -1,0 +1,7 @@
+flask
+flask-session
+flask-script
+flask-blueprint
+flask-sqlalchemy
+redis
+pymysql

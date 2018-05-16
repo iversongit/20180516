@@ -1,0 +1,50 @@
+{% extends 'base_main.html' %}
+{% block title %}
+    分数页面
+{% endblock %}
+
+{% block header %}
+        <ul>
+             {% for score in scores %}
+                 {{ loop.index }}  <!-- 循环的次数 -->
+                 {% if loop.first %}  <!-- 第一次循环 -->
+                    <li style="color: red;">{{ loop.revindex }}:{{ loop.index }}:{{ score }}</li>
+                     {% elif loop.last %} <!-- 最后一次循环 -->
+                     <li style="color: orange;">{{ loop.revindex }}:{{ loop.index }}:{{ score }}</li>
+                 {% else %}
+                    <li style="color:green;">{{ loop.revindex }}:{{ loop.index }}:{{ score }}</li>
+                 {% endif %}
+             {% endfor %}
+        </ul>
+    <hr>
+    <ul>
+        <li>{{ content_h2 }}</li>  <!-- 显示字符串中的原本内容 -->
+        <li>{{ content_h2 | safe }}</li>  <!-- 在标签显示之前进行解析、渲染 -->
+        <li>{{ content_h2 | striptags }}</li> <!-- 抛弃标签本身，只保留其中的内容 -->
+    </ul>
+
+    <hr>
+    <ul>
+        <!-- | 表示过滤器  可以连着写-->
+        <li>{{ content_h3 }}</li>
+        <li>{{ content_h3 | length}}</li>  <!-- 判断内容长度 -->
+        <li>{{ content_h3 | trim |length}}</li>  <!-- 去除空格后在显示长度 -->
+    </ul>
+    <hr>
+    <ul>
+        {% for i in config %} <!-- config:全局配置，后端无需定义、传入 即可解析 -->
+            <li>{{ i }}</li>
+            <li>第一个字母：{{ i | first}},最后一个字母：{{ i | last }}</li> <!-- 获取第一个/最后一个字母 -->
+            <li>小写：{{ i | lower}},大写：{{ i | upper }}</li> <!-- 大小写转换 -->
+            <li>首字母大写：{{ i | capitalize }}</li> <!-- 首字母大写 -->
+        {% endfor %}
+    </ul>
+    <hr>
+    {% from 'functions.html' import show_goods %}<!-- 导入函数 -->
+    {{ show_goods('可爱多','1') }}  <!-- 调用函数,并显示结果 -->
+    {{ show_goods('猛龙','10') }}
+    <hr>
+
+    {% from 'functions.html' import say %}
+    {{ say() }}
+{% endblock %}
